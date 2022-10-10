@@ -10,6 +10,7 @@ import {
 	FlexBlock,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { useReducedMotion } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -26,6 +27,7 @@ export default function Header() {
 		[]
 	);
 	const { __unstableSetCanvasMode } = useDispatch( editSiteStore );
+	const disableMotion = useReducedMotion();
 
 	return (
 		<HStack>
@@ -52,7 +54,10 @@ export default function Header() {
 							exit={ {
 								opacity: 0,
 							} }
-							transition={ { type: 'tween', duration: 0.5 } }
+							transition={ {
+								type: 'tween',
+								duration: disableMotion ? 0 : 0.5,
+							} }
 						>
 							<EditorToolbars />
 						</motion.div>

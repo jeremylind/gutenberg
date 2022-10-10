@@ -8,6 +8,7 @@ import classnames from 'classnames';
  */
 import { useSelect } from '@wordpress/data';
 import { __unstableMotion as motion } from '@wordpress/components';
+import { useReducedMotion } from '@wordpress/compose';
 
 /**
  * Internal dependencies
@@ -24,6 +25,7 @@ export default function Layout() {
 		} ),
 		[]
 	);
+	const disableMotion = useReducedMotion();
 
 	// Todo: Bring back the template list to the sidebar.
 
@@ -37,8 +39,10 @@ export default function Layout() {
 				<Sidebar />
 			</div>
 			<div className="edit-site-new__canvas-container">
-				{ /* todo: support reduced motion */ }
-				<motion.div className="edit-site-new__canvas" layout>
+				<motion.div
+					className="edit-site-new__canvas"
+					layout={ ! disableMotion }
+				>
 					<ErrorBoundary>
 						<Canvas />
 					</ErrorBoundary>
