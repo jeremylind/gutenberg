@@ -15,6 +15,7 @@ import { __unstableMotion as motion } from '@wordpress/components';
 import { Sidebar } from '../sidebar';
 import Canvas from '../canvas';
 import { store as editSiteStore } from '../../store';
+import ErrorBoundary from '../../components/error-boundary';
 
 export default function Layout() {
 	const { canvasMode } = useSelect(
@@ -24,7 +25,6 @@ export default function Layout() {
 		[]
 	);
 
-	// Todo: ErrorBoundary component somewhere.
 	// Todo: Better "Title" for the browser window depending on the state (useTitle)
 	// Todo: Bring back the template list to the sidebar.
 
@@ -40,7 +40,9 @@ export default function Layout() {
 			<div className="edit-site-new__canvas-container">
 				{ /* todo: support reduced motion */ }
 				<motion.div className="edit-site-new__canvas" layout>
-					<Canvas />
+					<ErrorBoundary>
+						<Canvas />
+					</ErrorBoundary>
 				</motion.div>
 			</div>
 		</div>
