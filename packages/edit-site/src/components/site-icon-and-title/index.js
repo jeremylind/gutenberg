@@ -33,20 +33,20 @@ function SiteIconAndTitle( { showIcon = true, showTitle = true } ) {
 
 	const icon = siteIconUrl ? (
 		<img
-			className="edit-site-new__site-icon-and-title-image"
+			className="edit-site-site-icon-and-title-image"
 			alt={ __( 'Site Icon' ) }
 			src={ siteIconUrl }
 		/>
 	) : (
 		<Icon
-			className="edit-site-new__site-icon-and-title-icon"
+			className="edit-site-site-icon-and-title-icon"
 			size="36px"
 			icon={ wordpress }
 		/>
 	);
 
 	return (
-		<div className="edit-site-new__site-icon-and-title">
+		<div className="edit-site-site-icon-and-title">
 			{ showIcon && icon }
 			{ showTitle && siteTitle }
 		</div>

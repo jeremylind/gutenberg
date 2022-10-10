@@ -1,14 +1,14 @@
-.edit-site-new__site-icon-and-title {
+.edit-site-site-icon-and-title {
 	display: inline-flex;
 	gap: $grid-unit-20;
 	align-items: center;
 }
 
-.edit-site-new__site-icon-and-title-icon {
+.edit-site-site-icon-and-title-icon {
 	fill: currentColor;
 }
 
-.edit-site-new__site-icon-and-title-image {
+.edit-site-site-icon-and-title-image {
 	width: $button-size;
 	height: $button-size;
 	border-radius: $radius-block-ui;

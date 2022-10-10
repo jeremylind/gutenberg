@@ -15,8 +15,8 @@ import { useReducedMotion } from '@wordpress/compose';
  */
 import { Sidebar } from '../sidebar';
 import Canvas from '../canvas';
+import ErrorBoundary from '../error-boundary';
 import { store as editSiteStore } from '../../store';
-import ErrorBoundary from '../../components/error-boundary';
 
 export default function Layout() {
 	const { canvasMode } = useSelect(
@@ -31,16 +31,16 @@ export default function Layout() {
 
 	return (
 		<div
-			className={ classnames( 'edit-site-new__layout', {
+			className={ classnames( 'edit-site-layout', {
 				'is-full-canvas': canvasMode === 'edit',
 			} ) }
 		>
-			<div className="edit-site-new__sidebar">
+			<div className="edit-site-layout__sidebar">
 				<Sidebar />
 			</div>
-			<div className="edit-site-new__canvas-container">
+			<div className="edit-site-layout__canvas-container">
 				<motion.div
-					className="edit-site-new__canvas"
+					className="edit-site-layout__canvas"
 					layout={ ! disableMotion }
 				>
 					<ErrorBoundary>

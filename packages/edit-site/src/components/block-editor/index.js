@@ -29,7 +29,7 @@ import { ReusableBlocksMenuItems } from '@wordpress/reusable-blocks';
  */
 import TemplatePartConverter from '../template-part-converter';
 import NavigateToLink from '../navigate-to-link';
-import { SidebarInspectorFill } from '../sidebar';
+import { SidebarInspectorFill } from '../sidebar-edit-mode';
 import { store as editSiteStore } from '../../store';
 import BlockInspectorButton from './block-inspector-button';
 import BackButton from './back-button';

@@ -8,8 +8,8 @@ import { ShortcutProvider } from '@wordpress/keyboard-shortcuts';
 /**
  * Internal dependencies
  */
-import { Routes } from '../components/routes';
-import Layout from './layout';
+import { Routes } from '../routes';
+import Layout from '../layout';
 
 export default function App() {
 	return (

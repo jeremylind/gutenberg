@@ -1,30 +1,30 @@
-.edit-site-new__layout {
+.edit-site-layout {
 	background: $gray-900;
 	color: $white;
 	min-height: 100%;
 	display: flex;
 }
 
-.edit-site-new__sidebar {
+.edit-site-layout__sidebar {
 	width: $sidebar-width;
 	padding: $grid-unit-20;
 
-	.edit-site-new__layout.is-full-canvas & {
+	.edit-site-layout.is-full-canvas & {
 		display: none;
 	}
 }
 
-.edit-site-new__canvas-container {
+.edit-site-layout__canvas-container {
 	flex-grow: 1;
 	padding: $grid-unit-30;
 	position: relative;
 
-	.edit-site-new__layout.is-full-canvas & {
+	.edit-site-layout.is-full-canvas & {
 		padding: 0;
 	}
 }
 
-.edit-site-new__canvas {
+.edit-site-layout__canvas {
 	background: $white;
 	color: $gray-900;
 	border-radius: $radius-block-ui * 2;
@@ -35,7 +35,7 @@
 	bottom: $grid-unit-30;
 	overflow-y: auto;
 
-	.edit-site-new__layout.is-full-canvas & {
+	.edit-site-layout.is-full-canvas & {
 		top: 0;
 		left: 0;
 		right: 0;
@@ -45,7 +45,7 @@
 }
 
 // This shouldn't be necessary (we should have a way to say that a skeletton is relative
-.edit-site-new__canvas .interface-interface-skeleton {
+.edit-site-layout__canvas .interface-interface-skeleton {
 	position: relative !important;
 	max-height: auto !important;
 	min-height: 100% !important;

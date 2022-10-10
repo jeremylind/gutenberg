@@ -26,16 +26,16 @@ import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
  */
 import { store as editSiteStore } from '../../store';
 import Header from '../header';
-import BlockEditor from '../../components/block-editor';
-import CodeEditor from '../../components/code-editor';
-import KeyboardShortcuts from '../../components/keyboard-shortcuts';
-import useInitEditedEntityFromURL from '../../components/use-init-edited-entity-from-url';
-import GlobalStylesRenderer from '../../components/global-styles-renderer';
-import { GlobalStylesProvider } from '../../components/global-styles/global-styles-provider';
-import ListViewSidebar from '../../components/secondary-sidebar/list-view-sidebar';
-import InserterSidebar from '../../components/secondary-sidebar/inserter-sidebar';
-import { SidebarComplementaryAreaFills } from '../../components/sidebar';
-import WelcomeGuide from '../../components/welcome-guide';
+import BlockEditor from '../block-editor';
+import CodeEditor from '../code-editor';
+import KeyboardShortcuts from '../keyboard-shortcuts';
+import useInitEditedEntityFromURL from '../use-init-edited-entity-from-url';
+import GlobalStylesRenderer from '../global-styles-renderer';
+import { GlobalStylesProvider } from '../global-styles/global-styles-provider';
+import ListViewSidebar from '../secondary-sidebar/list-view-sidebar';
+import InserterSidebar from '../secondary-sidebar/inserter-sidebar';
+import { SidebarComplementaryAreaFills } from '../sidebar-edit-mode';
+import WelcomeGuide from '../welcome-guide';
 
 const interfaceLabels = {
 	/* translators: accessibility text for the editor top bar landmark region. */
