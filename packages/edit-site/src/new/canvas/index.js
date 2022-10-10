@@ -14,14 +14,12 @@ import {
 import { useSelect, useDispatch } from '@wordpress/data';
 import {
 	store as blockEditorStore,
-	BlockStyles,
 	BlockBreadcrumb,
 } from '@wordpress/block-editor';
 import { Notice, Button } from '@wordpress/components';
 import { store as coreStore, EntityProvider } from '@wordpress/core-data';
 import { __ } from '@wordpress/i18n';
 import { store as keyboardShortcutsStore } from '@wordpress/keyboard-shortcuts';
-import { useEffect } from '@wordpress/element';
 
 /**
  * Internal dependencies
@@ -122,22 +120,6 @@ export default function Canvas() {
 		};
 	}, [] );
 	const { setIsSaveViewOpened } = useDispatch( editSiteStore );
-	const { enableComplementaryArea } = useDispatch( interfaceStore );
-
-	// Todo: Check whether this behavior is still relevant
-	// If yes, potentially move it into a hook or into the initFromURL hook.
-	useEffect(
-		function openGlobalStylesOnLoad() {
-			const searchParams = new URLSearchParams( window.location.search );
-			if ( searchParams.get( 'styles' ) === 'open' ) {
-				enableComplementaryArea(
-					'core/edit-site',
-					'edit-site/global-styles'
-				);
-			}
-		},
-		[ enableComplementaryArea ]
-	);
 
 	const isViewMode = canvasMode === 'view';
 	const isEditMode = canvasMode === 'edit';
@@ -157,18 +139,14 @@ export default function Canvas() {
 
 	return (
 		<>
-			{ /* Check if the edit-site shortcuts still make sense and where we should register them
-			 A hook might also make more sense */ }
 			{ isEditMode && <WelcomeGuide /> }
 			<KeyboardShortcuts.Register />
 			<SidebarComplementaryAreaFills />
 			<InterfaceSkeleton
 				header={ <Header /> }
 				notices={ isEditMode && <EditorSnackbars /> }
-				/* Some of these providers are probably better inside `BlockEditor` */
 				content={
 					<GlobalStylesProvider>
-						{ /* A hook might make more sense for this component */ }
 						<GlobalStylesRenderer />
 						<EntityProvider kind="root" type="site">
 							<EntityProvider
@@ -198,7 +176,7 @@ export default function Canvas() {
 											) }
 										</Notice>
 									) }
-									<KeyboardShortcuts />
+									{ isEditMode && <KeyboardShortcuts /> }
 								</div>
 							</EntityProvider>
 						</EntityProvider>
