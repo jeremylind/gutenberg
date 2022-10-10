@@ -25,7 +25,6 @@ export default function Layout() {
 		[]
 	);
 
-	// Todo: Better "Title" for the browser window depending on the state (useTitle)
 	// Todo: Bring back the template list to the sidebar.
 
 	return (
