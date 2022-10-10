@@ -37,6 +37,7 @@ import { GlobalStylesProvider } from '../../components/global-styles/global-styl
 import ListViewSidebar from '../../components/secondary-sidebar/list-view-sidebar';
 import InserterSidebar from '../../components/secondary-sidebar/inserter-sidebar';
 import { SidebarComplementaryAreaFills } from '../../components/sidebar';
+import WelcomeGuide from '../../components/welcome-guide';
 
 const interfaceLabels = {
 	/* translators: accessibility text for the editor top bar landmark region. */
@@ -158,6 +159,7 @@ export default function Canvas() {
 		<>
 			{ /* Check if the edit-site shortcuts still make sense and where we should register them
 			 A hook might also make more sense */ }
+			{ isEditMode && <WelcomeGuide /> }
 			<KeyboardShortcuts.Register />
 			<SidebarComplementaryAreaFills />
 			<InterfaceSkeleton
