@@ -188,7 +188,7 @@ class BlockListBlock extends Component {
 			getStylesFromColorScheme,
 			marginVertical,
 			marginHorizontal,
-			isInnerBlockSelected,
+			isDescendentBlockSelected,
 			name,
 			draggingEnabled,
 			draggingClientId,
@@ -205,7 +205,7 @@ class BlockListBlock extends Component {
 			order + 1
 		);
 		const { isFullWidth, isContainerRelated } = alignmentHelpers;
-		const accessible = ! ( isSelected || isInnerBlockSelected );
+		const accessible = ! ( isSelected || isDescendentBlockSelected );
 		const screenWidth = Math.floor( Dimensions.get( 'window' ).width );
 		const isScreenWidthEqual = blockWidth === screenWidth;
 		const isScreenWidthWider = blockWidth < screenWidth;
@@ -335,7 +335,11 @@ export default compose( [
 
 		const order = getBlockIndex( clientId );
 		const isSelected = isBlockSelected( clientId );
-		const isInnerBlockSelected = hasSelectedInnerBlock( clientId );
+		const checkDeep = true;
+		const isDescendentBlockSelected = hasSelectedInnerBlock(
+			clientId,
+			checkDeep
+		);
 		const block = getBlock( clientId );
 		const { name, attributes, isValid } = block || {};
 
@@ -395,7 +399,7 @@ export default compose( [
 			draggingClientId,
 			draggingEnabled,
 			isSelected,
-			isInnerBlockSelected,
+			isDescendentBlockSelected,
 			isValid,
 			isParentSelected,
 			firstToSelectId,
