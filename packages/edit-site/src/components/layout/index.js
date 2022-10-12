@@ -15,10 +15,16 @@ import { useReducedMotion } from '@wordpress/compose';
  */
 import { Sidebar } from '../sidebar';
 import Canvas from '../canvas';
+import ListPage from '../list';
 import ErrorBoundary from '../error-boundary';
 import { store as editSiteStore } from '../../store';
+import { useLocation } from '../routes';
+import getIsListPage from '../../utils/get-is-list-page';
 
 export default function Layout() {
+	const { params } = useLocation();
+	const isListPage = getIsListPage( params );
+	const isEditorPage = ! isListPage;
 	const { canvasMode } = useSelect(
 		( select ) => ( {
 			canvasMode: select( editSiteStore ).__unstableGetCanvasMode(),
@@ -26,13 +32,14 @@ export default function Layout() {
 		[]
 	);
 	const disableMotion = useReducedMotion();
+	const isFullCanvas = isEditorPage && canvasMode === 'edit';
 
 	// Todo: Bring back the template list to the sidebar.
 
 	return (
 		<div
 			className={ classnames( 'edit-site-layout', {
-				'is-full-canvas': canvasMode === 'edit',
+				'is-full-canvas': isFullCanvas,
 			} ) }
 		>
 			<div className="edit-site-layout__sidebar">
@@ -44,7 +51,8 @@ export default function Layout() {
 					layout={ ! disableMotion }
 				>
 					<ErrorBoundary>
-						<Canvas />
+						{ isEditorPage && <Canvas /> }
+						{ isListPage && <ListPage /> }
 					</ErrorBoundary>
 				</motion.div>
 			</div>

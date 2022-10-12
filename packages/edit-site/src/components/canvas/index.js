@@ -36,6 +36,7 @@ import ListViewSidebar from '../secondary-sidebar/list-view-sidebar';
 import InserterSidebar from '../secondary-sidebar/inserter-sidebar';
 import { SidebarComplementaryAreaFills } from '../sidebar-edit-mode';
 import WelcomeGuide from '../welcome-guide';
+import useTitle from '../routes/use-title';
 
 const interfaceLabels = {
 	/* translators: accessibility text for the editor top bar landmark region. */
@@ -132,6 +133,10 @@ export default function Canvas() {
 		? __( 'List View' )
 		: __( 'Block Library' );
 	const isReady = editedPostType !== undefined && editedPostId !== undefined;
+
+	// Only announce the title once the editor is ready to prevent "Replace"
+	// action in <URlQueryController> from double-announcing.
+	useTitle( isReady && __( 'Editor (beta)' ) );
 
 	if ( ! isReady ) {
 		return null;
