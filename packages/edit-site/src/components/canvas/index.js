@@ -155,7 +155,6 @@ export default function Canvas() {
 								id={ editedPostId }
 							>
 								<div
-									// TODO: this only works in chrome right now
 									inert={ isViewMode ? 'true' : undefined }
 									style={ { height: '100%' } }
 								>
@@ -183,35 +182,39 @@ export default function Canvas() {
 					</GlobalStylesProvider>
 				}
 				secondarySidebar={
-					( shouldShowInserter && <InserterSidebar /> ) ||
-					( shouldShowListView && <ListViewSidebar /> )
+					isEditMode &&
+					( ( shouldShowInserter && <InserterSidebar /> ) ||
+						( shouldShowListView && <ListViewSidebar /> ) )
 				}
 				sidebar={
+					isEditMode &&
 					isRightSidebarOpen && (
 						<ComplementaryArea.Slot scope="core/edit-site" />
 					)
 				}
 				actions={
-					<>
-						{ isSaveViewOpen ? (
-							<EntitiesSavedStates
-								close={ () => setIsSaveViewOpened( false ) }
-							/>
-						) : (
-							<div className="edit-site-editor__toggle-save-panel">
-								<Button
-									variant="secondary"
-									className="edit-site-editor__toggle-save-panel-button"
-									onClick={ () =>
-										setIsSaveViewOpened( true )
-									}
-									aria-expanded={ false }
-								>
-									{ __( 'Open save panel' ) }
-								</Button>
-							</div>
-						) }
-					</>
+					isEditMode && (
+						<>
+							{ isSaveViewOpen ? (
+								<EntitiesSavedStates
+									close={ () => setIsSaveViewOpened( false ) }
+								/>
+							) : (
+								<div className="edit-site-editor__toggle-save-panel">
+									<Button
+										variant="secondary"
+										className="edit-site-editor__toggle-save-panel-button"
+										onClick={ () =>
+											setIsSaveViewOpened( true )
+										}
+										aria-expanded={ false }
+									>
+										{ __( 'Open save panel' ) }
+									</Button>
+								</div>
+							) }
+						</>
+					)
 				}
 				footer={
 					showBlockBreakcrumb && (
