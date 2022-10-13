@@ -1,3 +1,15 @@
-.edit-site-header__toggle {
-	min-height: 60px;
+.edit-site-header-wrapper {
+	height: $header-height;
+	display: flex;
+	align-items: center;
+}
+
+.edit-site-header__toggle.is-canvas-mode-view {
+	margin-left: $grid-unit-20;
+}
+
+.edit-site-header__toggle.is-canvas-mode-edit {
+	background: $gray-900;
+	color: $white;
+	height: 100%;
 }

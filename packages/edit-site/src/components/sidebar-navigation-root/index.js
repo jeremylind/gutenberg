@@ -6,6 +6,7 @@ import {
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
+import { globe, layout, symbolFilled } from '@wordpress/icons';
 
 /**
  * Internal dependencies
@@ -17,6 +18,10 @@ import { useLocation } from '../routes';
 
 export default function SidebarNavigationRoot() {
 	const { params } = useLocation();
+	const browseLink = useLink( {
+		postType: undefined,
+		postId: undefined,
+	} );
 	const templatesLink = useLink( {
 		postType: 'wp_template',
 		postId: undefined,
@@ -35,7 +40,18 @@ export default function SidebarNavigationRoot() {
 			/>
 			<ItemGroup>
 				<SidebarNavigationItem
+					{ ...browseLink }
+					icon={ globe }
+					aria-pressed={
+						( ! params.postType && ! params.postId ) ||
+						( !! params.postType && !! params.postId )
+					}
+				>
+					{ __( 'Browse' ) }
+				</SidebarNavigationItem>
+				<SidebarNavigationItem
 					{ ...templatesLink }
+					icon={ layout }
 					aria-pressed={
 						params.postType === 'wp_template' && ! params.postId
 					}
@@ -44,6 +60,7 @@ export default function SidebarNavigationRoot() {
 				</SidebarNavigationItem>
 				<SidebarNavigationItem
 					{ ...templatePartsLink }
+					icon={ symbolFilled }
 					aria-pressed={
 						params.postType === 'wp_template_part' &&
 						! params.postId

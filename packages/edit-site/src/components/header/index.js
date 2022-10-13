@@ -30,15 +30,16 @@ export default function Header() {
 	const disableMotion = useReducedMotion();
 
 	return (
-		<HStack>
+		<HStack className="edit-site-header-wrapper">
 			<Button
-				className="edit-site-header__toggle"
+				className={ `edit-site-header__toggle is-canvas-mode-${ canvasMode }` }
 				label={ __( 'Toggle Navigation Sidebar' ) }
 				onClick={ () =>
 					__unstableSetCanvasMode(
 						canvasMode === 'view' ? 'edit' : 'view'
 					)
 				}
+				variant={ canvasMode === 'view' ? 'secondary' : undefined }
 			>
 				{ canvasMode === 'edit' && (
 					<SiteIconAndTitle showTitle={ false } />

@@ -6,9 +6,19 @@ import classnames from 'classnames';
 /**
  * WordPress dependencies
  */
-import { __experimentalItem as Item } from '@wordpress/components';
+import {
+	__experimentalItem as Item,
+	__experimentalHStack as HStack,
+	FlexItem,
+} from '@wordpress/components';
+import { Icon } from '@wordpress/icons';
 
-export default function SidebarNavigationItem( { className, ...props } ) {
+export default function SidebarNavigationItem( {
+	className,
+	icon,
+	children,
+	...props
+} ) {
 	return (
 		<Item
 			className={ classnames(
@@ -16,6 +26,18 @@ export default function SidebarNavigationItem( { className, ...props } ) {
 				className
 			) }
 			{ ...props }
-		/>
+		>
+			{ icon && (
+				<HStack justify="flex-start">
+					<Icon
+						style={ { fill: 'currentcolor' } }
+						icon={ icon }
+						size={ 24 }
+					/>
+					<FlexItem>{ children }</FlexItem>
+				</HStack>
+			) }
+			{ ! icon && children }
+		</Item>
 	);
 }
