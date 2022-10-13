@@ -147,94 +147,101 @@ export default function Canvas() {
 			{ isEditMode && <WelcomeGuide /> }
 			<KeyboardShortcuts.Register />
 			<SidebarComplementaryAreaFills />
-			<InterfaceSkeleton
-				header={ <Header /> }
-				notices={ isEditMode && <EditorSnackbars /> }
-				content={
-					<GlobalStylesProvider>
-						<GlobalStylesRenderer />
-						<EntityProvider kind="root" type="site">
-							<EntityProvider
-								kind="postType"
-								type={ editedPostType }
-								id={ editedPostId }
-							>
-								<div
-									inert={ isViewMode ? 'true' : undefined }
-									style={ { height: '100%' } }
-								>
-									<EditorNotices />
-									{ showVisualEditor && editedPost && (
-										<BlockEditor />
-									) }
-									{ editorMode === 'text' && editedPost && (
-										<CodeEditor />
-									) }
-									{ hasLoadedPost && ! editedPost && (
-										<Notice
-											status="warning"
-											isDismissible={ false }
-										>
-											{ __(
-												"You attempted to edit an item that doesn't exist. Perhaps it was deleted?"
-											) }
-										</Notice>
-									) }
-									{ isEditMode && <KeyboardShortcuts /> }
-								</div>
-							</EntityProvider>
-						</EntityProvider>
-					</GlobalStylesProvider>
-				}
-				secondarySidebar={
-					isEditMode &&
-					( ( shouldShowInserter && <InserterSidebar /> ) ||
-						( shouldShowListView && <ListViewSidebar /> ) )
-				}
-				sidebar={
-					isEditMode &&
-					isRightSidebarOpen && (
-						<ComplementaryArea.Slot scope="core/edit-site" />
-					)
-				}
-				actions={
-					isEditMode && (
+			<GlobalStylesProvider>
+				<InterfaceSkeleton
+					header={ <Header /> }
+					notices={ isEditMode && <EditorSnackbars /> }
+					content={
 						<>
-							{ isSaveViewOpen ? (
-								<EntitiesSavedStates
-									close={ () => setIsSaveViewOpened( false ) }
-								/>
-							) : (
-								<div className="edit-site-editor__toggle-save-panel">
-									<Button
-										variant="secondary"
-										className="edit-site-editor__toggle-save-panel-button"
-										onClick={ () =>
-											setIsSaveViewOpened( true )
+							<GlobalStylesRenderer />
+							<EntityProvider kind="root" type="site">
+								<EntityProvider
+									kind="postType"
+									type={ editedPostType }
+									id={ editedPostId }
+								>
+									<div
+										inert={
+											isViewMode ? 'true' : undefined
 										}
-										aria-expanded={ false }
+										style={ { height: '100%' } }
 									>
-										{ __( 'Open save panel' ) }
-									</Button>
-								</div>
-							) }
+										<EditorNotices />
+										{ showVisualEditor && editedPost && (
+											<BlockEditor />
+										) }
+										{ editorMode === 'text' &&
+											editedPost && <CodeEditor /> }
+										{ hasLoadedPost && ! editedPost && (
+											<Notice
+												status="warning"
+												isDismissible={ false }
+											>
+												{ __(
+													"You attempted to edit an item that doesn't exist. Perhaps it was deleted?"
+												) }
+											</Notice>
+										) }
+										{ isEditMode && <KeyboardShortcuts /> }
+									</div>
+								</EntityProvider>
+							</EntityProvider>
 						</>
-					)
-				}
-				footer={
-					showBlockBreakcrumb && (
-						<BlockBreadcrumb rootLabelText={ __( 'Template' ) } />
-					)
-				}
-				shortcuts={ {
-					previous: previousShortcut,
-					next: nextShortcut,
-				} }
-				labels={ {
-					...interfaceLabels,
-					secondarySidebar: secondarySidebarLabel,
-				} }
-			/>
+					}
+					secondarySidebar={
+						isEditMode &&
+						( ( shouldShowInserter && <InserterSidebar /> ) ||
+							( shouldShowListView && <ListViewSidebar /> ) )
+					}
+					sidebar={
+						isEditMode &&
+						isRightSidebarOpen && (
+							<ComplementaryArea.Slot scope="core/edit-site" />
+						)
+					}
+					actions={
+						isEditMode && (
+							<>
+								{ isSaveViewOpen ? (
+									<EntitiesSavedStates
+										close={ () =>
+											setIsSaveViewOpened( false )
+										}
+									/>
+								) : (
+									<div className="edit-site-editor__toggle-save-panel">
+										<Button
+											variant="secondary"
+											className="edit-site-editor__toggle-save-panel-button"
+											onClick={ () =>
+												setIsSaveViewOpened( true )
+											}
+											aria-expanded={ false }
+										>
+											{ __( 'Open save panel' ) }
+										</Button>
+									</div>
+								) }
+							</>
+						)
+					}
+					footer={
+						showBlockBreakcrumb && (
+							<BlockBreadcrumb
+								rootLabelText={ __( 'Template' ) }
+							/>
+						)
+					}
+					shortcuts={ {
+						previous: previousShortcut,
+						next: nextShortcut,
+					} }
+					labels={ {
+						...interfaceLabels,
+						secondarySidebar: secondarySidebarLabel,
+					} }
+				/>
+			</GlobalStylesProvider>
 		</>
 	);
 }
