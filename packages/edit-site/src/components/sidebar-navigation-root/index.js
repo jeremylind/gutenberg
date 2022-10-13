@@ -3,7 +3,6 @@
  */
 import {
 	__experimentalItemGroup as ItemGroup,
-	__experimentalNavigatorButton as NavigatorButton,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -35,12 +34,6 @@ export default function SidebarNavigationRoot() {
 				parentHref="index.php"
 			/>
 			<ItemGroup>
-				<NavigatorButton
-					path="/navigation-menus"
-					as={ SidebarNavigationItem }
-				>
-					{ __( 'Navigation Menus' ) }
-				</NavigatorButton>
 				<SidebarNavigationItem
 					{ ...templatesLink }
 					aria-pressed={

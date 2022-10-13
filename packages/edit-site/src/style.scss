@@ -10,6 +10,7 @@
 @import "./components/sidebar-edit-mode/style.scss";
 @import "./components/sidebar-edit-mode/settings-header/style.scss";
 @import "./components/sidebar-edit-mode/template-card/style.scss";
+@import "./components/sidebar-edit-mode/navigation-menu-sidebar/style.scss";
 @import "./components/template-details/style.scss";
 @import "./components/create-template-part-modal/style.scss";
 @import "./components/secondary-sidebar/style.scss";
@@ -22,7 +23,6 @@
 @import "./components/sidebar-navigation-item/style.scss";
 @import "./components/sidebar-navigation-title/style.scss";
 @import "./components/site-icon-and-title/style.scss";
-@import "./components/navigation-inspector/style.scss";
 
 
 // In order to use mix-blend-mode, this element needs to have an explicitly set background-color.

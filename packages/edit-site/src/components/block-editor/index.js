@@ -7,7 +7,7 @@ import classnames from 'classnames';
  * WordPress dependencies
  */
 import { useSelect, useDispatch } from '@wordpress/data';
-import { useCallback, useMemo, useRef } from '@wordpress/element';
+import { Fragment, useCallback, useMemo, useRef } from '@wordpress/element';
 import { useEntityBlockEditor, store as coreStore } from '@wordpress/core-data';
 import {
 	BlockList,
@@ -15,6 +15,8 @@ import {
 	__experimentalLinkControl,
 	BlockInspector,
 	BlockTools,
+	__unstableBlockToolbarLastItem,
+	__unstableBlockNameContext,
 	__unstableBlockSettingsMenuFirstItem,
 	__unstableUseTypingObserver as useTypingObserver,
 	BlockEditorKeyboardShortcuts,
@@ -23,6 +25,10 @@ import {
 } from '@wordpress/block-editor';
 import { useMergeRefs, useViewportMatch } from '@wordpress/compose';
 import { ReusableBlocksMenuItems } from '@wordpress/reusable-blocks';
+import { ToolbarGroup, ToolbarButton } from '@wordpress/components';
+import { __ } from '@wordpress/i18n';
+import { listView } from '@wordpress/icons';
+import { store as interfaceStore } from '@wordpress/interface';
 
 /**
  * Internal dependencies
@@ -39,6 +45,43 @@ const LAYOUT = {
 	type: 'default',
 	// At the root level of the site editor, no alignments should be allowed.
 	alignments: [],
+};
+
+const NAVIGATION_SIDEBAR_NAME = 'edit-site/navigation-menu';
+const NavMenuSidebarToggle = () => {
+	const { isNavigationSidebarOpen } = useSelect( ( select ) => {
+		return {
+			isNavigationSidebarOpen:
+				select( interfaceStore ).getActiveComplementaryArea(
+					editSiteStore.name
+				) === NAVIGATION_SIDEBAR_NAME,
+		};
+	}, [] );
+
+	const { enableComplementaryArea, disableComplementaryArea } =
+		useDispatch( interfaceStore );
+	const toggleNavigationSidebar = useCallback( () => {
+		const toggleComplementaryArea = isNavigationSidebarOpen
+			? disableComplementaryArea
+			: enableComplementaryArea;
+		toggleComplementaryArea( editSiteStore.name, NAVIGATION_SIDEBAR_NAME );
+	}, [ isNavigationSidebarOpen ] );
+
+	return (
+		<ToolbarGroup>
+			<ToolbarButton
+				className="components-toolbar__control"
+				label={
+					isNavigationSidebarOpen
+						? __( 'Close list view' )
+						: __( 'Open list view' )
+				}
+				onClick={ toggleNavigationSidebar }
+				icon={ listView }
+				isActive={ isNavigationSidebarOpen }
+			/>
+		</ToolbarGroup>
+	);
 };
 
 export default function BlockEditor() {
@@ -154,6 +197,14 @@ export default function BlockEditor() {
 		[ page?.context ]
 	);
 
+	// Conditionally include NavMenu sidebar in Plugin only.
+	// Optimise for dead code elimination.
+	// See https://github.com/WordPress/gutenberg/blob/trunk/docs/how-to-guides/feature-flags.md#dead-code-elimination.
+	let MaybeNavMenuSidebarToggle = Fragment;
+	if ( process.env.IS_GUTENBERG_PLUGIN ) {
+		MaybeNavMenuSidebarToggle = NavMenuSidebarToggle;
+	}
+
 	return (
 		<BlockEditorProvider
 			settings={ settings }
@@ -217,6 +268,15 @@ export default function BlockEditor() {
 							<BlockInspectorButton onClick={ onClose } />
 						) }
 					</__unstableBlockSettingsMenuFirstItem>
+					<__unstableBlockToolbarLastItem>
+						<__unstableBlockNameContext.Consumer>
+							{ ( blockName ) =>
+								blockName === 'core/navigation' && (
+									<MaybeNavMenuSidebarToggle />
+								)
+							}
+						</__unstableBlockNameContext.Consumer>
+					</__unstableBlockToolbarLastItem>
 				</BlockTools>
 				<ReusableBlocksMenuItems />
 			</BlockContextProvider>

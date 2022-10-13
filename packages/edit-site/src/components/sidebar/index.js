@@ -12,7 +12,6 @@ import {
  * Internal dependencies
  */
 import SiteIconAndTitle from '../site-icon-and-title';
-import SidebarNavigationMenus from '../sidebar-navigation-menus';
 import SidebarNavigationRoot from '../sidebar-navigation-root';
 
 export function Sidebar() {
@@ -29,9 +28,6 @@ export function Sidebar() {
 			>
 				<NavigatorScreen path="/">
 					<SidebarNavigationRoot />
-				</NavigatorScreen>
-				<NavigatorScreen path="/navigation-menus">
-					<SidebarNavigationMenus />
 				</NavigatorScreen>
 			</NavigatorProvider>
 		</VStack>
