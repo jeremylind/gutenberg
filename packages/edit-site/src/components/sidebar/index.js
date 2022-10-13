@@ -5,6 +5,7 @@ import {
 	__experimentalVStack as VStack,
 	__experimentalNavigatorProvider as NavigatorProvider,
 	__experimentalNavigatorScreen as NavigatorScreen,
+	Button,
 } from '@wordpress/components';
 
 /**
@@ -17,8 +18,15 @@ import SidebarNavigationRoot from '../sidebar-navigation-root';
 export function Sidebar() {
 	return (
 		<VStack alignment="top" spacing={ 10 }>
-			<SiteIconAndTitle />
-			<NavigatorProvider initialPath="/">
+			<div className="edit-site-sidebar__logo">
+				<Button href="index.php">
+					<SiteIconAndTitle />
+				</Button>
+			</div>
+			<NavigatorProvider
+				className="edit-site-sidebar__content"
+				initialPath="/"
+			>
 				<NavigatorScreen path="/">
 					<SidebarNavigationRoot />
 				</NavigatorScreen>

@@ -24,7 +24,6 @@
 	}
 }
 
-
 .edit-site-navigation-inspector__placeholder {
 	padding: $grid-unit-10;
 	margin: $grid-unit-10;
@@ -36,4 +35,8 @@
 		margin-left: $grid-unit-30;
 		width: 50%;
 	}
+}
+
+.edit-site-navigation-inspector__empty-msg {
+	padding: 0 $grid-unit-10;
 }

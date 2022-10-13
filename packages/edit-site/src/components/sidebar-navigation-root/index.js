@@ -4,7 +4,6 @@
 import {
 	__experimentalItemGroup as ItemGroup,
 	__experimentalNavigatorButton as NavigatorButton,
-	__experimentalItem as Item,
 	__experimentalVStack as VStack,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
@@ -14,8 +13,11 @@ import { __ } from '@wordpress/i18n';
  */
 import SidebarNavigationTitle from '../sidebar-navigation-title';
 import { useLink } from '../routes/link';
+import SidebarNavigationItem from '../sidebar-navigation-item';
+import { useLocation } from '../routes';
 
 export default function SidebarNavigationRoot() {
+	const { params } = useLocation();
 	const templatesLink = useLink( {
 		postType: 'wp_template',
 		postId: undefined,
@@ -24,6 +26,7 @@ export default function SidebarNavigationRoot() {
 		postType: 'wp_template_part',
 		postId: undefined,
 	} );
+
 	return (
 		<VStack spacing={ 6 }>
 			<SidebarNavigationTitle
@@ -32,11 +35,29 @@ export default function SidebarNavigationRoot() {
 				parentHref="index.php"
 			/>
 			<ItemGroup>
-				<NavigatorButton path="/navigation-menus" as={ Item }>
+				<NavigatorButton
+					path="/navigation-menus"
+					as={ SidebarNavigationItem }
+				>
 					{ __( 'Navigation Menus' ) }
 				</NavigatorButton>
-				<Item { ...templatesLink }>{ __( 'Templates' ) }</Item>
-				<Item { ...templatePartsLink }>{ __( 'Template Parts' ) }</Item>
+				<SidebarNavigationItem
+					{ ...templatesLink }
+					aria-pressed={
+						params.postType === 'wp_template' && ! params.postId
+					}
+				>
+					{ __( 'Templates' ) }
+				</SidebarNavigationItem>
+				<SidebarNavigationItem
+					{ ...templatePartsLink }
+					aria-pressed={
+						params.postType === 'wp_template_part' &&
+						! params.postId
+					}
+				>
+					{ __( 'Template Parts' ) }
+				</SidebarNavigationItem>
 			</ItemGroup>
 		</VStack>
 	);
